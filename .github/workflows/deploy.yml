@@ -18,17 +18,17 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm ci
-        working-directory: anime/my-flowchart-app
+        run: npm install
+        working-directory: anime/my-flowchart-app  # 👈 this is the key
 
       - name: Build Project
         run: npm run build
-        working-directory: anime/my-flowchart-app
+        working-directory: anime/my-flowchart-app  # 👈 run inside same folder
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: anime/my-flowchart-app/dist  # adjust if your build folder is different
+          path: anime/my-flowchart-app/dist  # adjust if your build output is elsewhere
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
