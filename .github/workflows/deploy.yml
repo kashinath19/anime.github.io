@@ -1,0 +1,34 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+        working-directory: anime/my-flowchart-app
+
+      - name: Build Project
+        run: npm run build
+        working-directory: anime/my-flowchart-app
+
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: anime/my-flowchart-app/dist  # adjust if your build folder is different
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
